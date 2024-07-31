@@ -1,0 +1,215 @@
+{
+	// 发送消息。返回发送的消息
+	"@type": "sendMessage",
+	"@extra": "@ASyncTask",
+	// @目标聊天Id
+	"chat_id": {{chatId}},
+	// @目标主题Id
+	"message_thread_id": 0,
+	// 有关要回复的消息或故事的信息；如果没有，则传递 null
+	"reply_to": {
+		// extends: InputMessageReplyTo 包含要回复的消息或故事的信息
+		//
+		// 描述要在同一聊天和论坛主题中回复的消息
+		"@type": "inputMessageReplyToMessage",
+		// @message_id 要在同一聊天和主题中回复的消息的标识符
+		"message_id": {{messageId}},
+		// {{inputTextQuote}}
+		// @quote 要回复的消息中的引用；如果没有，则传递 null。对于秘密聊天中的回复，必须始终为 null
+		"quote": null
+	},
+	// 用于发送消息的选项；传递 null 以使用默认选项
+	"options": {
+		// extends: Base
+		//
+		// 发送消息时要使用的选项
+		"@type": "messageSendOptions",
+		// disable_notification 传递 true 以禁用消息通知
+		"disable_notification": false,
+		// from_background 如果消息是从后台发送的,则传递 true
+		"from_background": true,
+		// protect_content 如果必须保护消息内容不被转发和保存,则传递 true；仅适用于机器人
+		"protect_content": false,
+		// update_order_of_installed_sticker_sets 如果用户从已安装的贴纸集中明确选择了贴纸或自定义表情符号,则传递 true；仅适用于 sendMessage 和 sendMessageAlbum
+		"update_order_of_installed_sticker_sets": false,
+		// scheduling_state {{MessageSchedulingState}} 消息调度状态；传递 null 以立即发送消息。无法安排发送到秘密聊天的消息、实时位置消息和自毁消息
+		"scheduling_state": null,
+		//effect_id 应用于消息的效果的标识符；如果没有,则传递 0；仅适用于私人聊天中的 sendMessage 和 sendMessageAlbum
+		"effect_id": 0,
+		//sending_id 非持久标识符,将在 messageSendingStatePending 对象中返回,可用于匹配已发送消息和相应的 updateNewMessage 更新
+		"sending_id": 60,
+		//only_preview 传递 true 以获取虚假消息而不是实际发送它们
+		"only_preview": false
+	},
+	// 回复消息的标记；若无则传递 null；仅适用于机器人
+	"reply_markup": {
+		// extends: ReplyMarkup Contains a description of a custom keyboard and actions that can be done with it to quickly reply to bots
+		// 扩展自：ReplyMarkup 包含自定义键盘和可以通过它快速回复机器人的操作描述
+		// 
+		// Contains a custom keyboard layout to quickly reply to bots
+		// 包含一个自定义键盘布局以快速回复机器人
+		"@type": "replyMarkupShowKeyboard",
+		// rows A list of rows of bot keyboard buttons
+		// rows 机器人键盘按钮的行列表
+		"rows": [
+			[
+				{
+					// extends: Base 
+					// 继承自: Base
+					// 
+					// Represents a single button in a bot keyboard @text Text of the button @type Type of the button
+					// 表示机器人键盘中的单个按钮 @text 按钮的文本 @type 按钮的类型
+					"@type": "keyboardButton",
+					"text": "查询用户",
+					"type": {
+						// extends: KeyboardButtonType Describes a keyboard button type
+						// 继承自: KeyboardButtonType 描述了键盘按钮的类型
+						// 
+						// A button that requests users to be shared by the current user; available only in private chats. Use the method shareUsersWithBot to complete the request
+						// 请求当前用户共享用户的按钮；仅在私聊中可用。使用shareUsersWithBot方法完成请求
+						"@type": "keyboardButtonTypeRequestUsers",
+						// id Unique button identifier
+						// id 唯一按钮标识符
+						"id": 100001,
+						// restrict_user_is_bot True, if the shared users must or must not be bots
+						// restrict_user_is_bot 如果共享用户必须或不必是机器人，则为true
+						"restrict_user_is_bot": false,
+						// user_is_bot True, if the shared users must be bots; otherwise, the shared users must not be bots. Ignored if restrict_user_is_bot is false
+						// user_is_bot 如果共享用户必须是机器人，则为true；否则，共享用户不能是机器人。如果restrict_user_is_bot为false，则忽略
+						"user_is_bot": false,
+						// restrict_user_is_premium True, if the shared users must or must not be Telegram Premium users
+						// restrict_user_is_premium 如果共享用户必须或不必是Telegram高级用户，则为true
+						"restrict_user_is_premium": false,
+						// user_is_premium True, if the shared users must be Telegram Premium users; otherwise, the shared users must not be Telegram Premium users. Ignored if restrict_user_is_premium is false
+						// user_is_premium 如果共享用户必须是Telegram高级用户，则为true；否则，共享用户不能是Telegram高级用户。如果restrict_user_is_premium为false，则忽略
+						"user_is_premium": false,
+						// max_quantity The maximum number of users to share
+						// max_quantity 要共享的最大用户数
+						"max_quantity": 1,
+						// request_name Pass true to request name of the users; bots only
+						// request_name 传递true以请求用户的名称；仅适用于机器人
+						"request_name": true,
+						// request_username Pass true to request username of the users; bots only
+						// request_username 传递true以请求用户的用户名；仅适用于机器人
+						"request_username": true,
+						// request_photo Pass true to request photo of the users; bots only
+						// request_photo 传递true以请求用户的照片；仅适用于机器人
+						"request_photo": true
+					}
+				},
+				{
+					// extends: Base 
+					// 继承自: Base
+					// 
+					// Represents a single button in a bot keyboard @text Text of the button @type Type of the button
+					// 表示机器人键盘中的单个按钮 @text 按钮的文本 @type 按钮的类型
+					"@type": "keyboardButton",
+					"text": "查询群组",
+					"type": {
+						// extends: KeyboardButtonType Describes a keyboard button type
+						// 继承自: KeyboardButtonType 描述了键盘按钮的类型
+						// 
+						// A button that requests a chat to be shared by the current user; available only in private chats. Use the method shareChatWithBot to complete the request
+						// 请求当前用户共享聊天的按钮；仅在私聊中可用。使用shareChatWithBot方法完成请求
+						"@type": "keyboardButtonTypeRequestChat",
+						// id Unique button identifier
+						// id 唯一按钮标识符
+						"id": 100002,
+						// chat_is_channel True, if the chat must be a channel; otherwise, a basic group or a supergroup chat is shared
+						// chat_is_channel 如果聊天必须是频道，则为true；否则，共享基本群组或超级群组聊天
+						"chat_is_channel": false,
+						// restrict_chat_is_forum True, if the chat must or must not be a forum supergroup
+						// restrict_chat_is_forum 如果聊天必须或不必是论坛超级群组，则为true
+						"restrict_chat_is_forum": false,
+						// chat_is_forum True, if the chat must be a forum supergroup; otherwise, the chat must not be a forum supergroup. Ignored if restrict_chat_is_forum is false
+						// chat_is_forum 如果聊天必须是论坛超级群组，则为true；否则，聊天不能是论坛超级群组。如果restrict_chat_is_forum为false，则忽略
+						"chat_is_forum": false,
+						// restrict_chat_has_username True, if the chat must or must not have a username
+						// restrict_chat_has_username 如果聊天必须或不必有用户名，则为true
+						"restrict_chat_has_username": false,
+						// chat_has_username True, if the chat must have a username; otherwise, the chat must not have a username. Ignored if restrict_chat_has_username is false
+						// chat_has_username 如果聊天必须有用户名，则为true；否则，聊天不能有用户名。如果restrict_chat_has_username为false，则忽略
+						"chat_has_username": false,
+						// chat_is_created True, if the chat must be created by the current user
+						// chat_is_created 如果聊天必须由当前用户创建，则为true
+						"chat_is_created": false,
+						// user_administrator_rights Expected user administrator rights in the chat; may be null if they aren't restricted
+						// user_administrator_rights 聊天中预期的用户管理员权限；如果不受限制，可能为null
+						"user_administrator_rights": null,
+						// bot_administrator_rights Expected bot administrator rights in the chat; may be null if they aren't restricted
+						// bot_administrator_rights 聊天中预期的机器人管理员权限；如果不受限制，可能为null
+						"bot_administrator_rights": null,
+						// bot_is_member True, if the bot must be a member of the chat; for basic group and supergroup chats only
+						// bot_is_member 如果机器人必须是聊天成员，则为true；仅适用于基本群组和超级群组聊天
+						"bot_is_member": false,
+						// request_title Pass true to request title of the chat; bots only
+						// request_title 传递true以请求聊天标题；仅适用于机器人
+						"request_title": true,
+						// request_username Pass true to request username of the chat; bots only
+						// request_username 传递true以请求聊天用户名；仅适用于机器人
+						"request_username": true,
+						// request_photo Pass true to request photo of the chat; bots only
+						// request_photo 传递true以请求聊天的照片；仅适用于机器人
+						"request_photo": true
+					}
+				}
+			]
+		],
+		// is_persistent True, if the keyboard is supposed to always be shown when the ordinary keyboard is hidden
+		// is_persistent 如果键盘应始终在普通键盘隐藏时显示，则为True
+		"is_persistent": false,
+		// resize_keyboard True, if the application needs to resize the keyboard vertically
+		// resize_keyboard 如果应用程序需要垂直调整键盘大小，则为True
+		"resize_keyboard": true,
+		// one_time True, if the application needs to hide the keyboard after use
+		// one_time 如果应用程序需要在使用后隐藏键盘，则为True
+		"one_time": true,
+		// is_personal True, if the keyboard must automatically be shown to the current user. For outgoing messages, specify true to show the keyboard only for the mentioned users and for the target user of a reply
+		// is_personal 如果键盘必须自动显示给当前用户，则为True。对于发出的消息，指定为True只显示键盘给提到的用户和回复的目标用户
+		"is_personal": true,
+		// input_field_placeholder If non-empty, the placeholder to be shown in the input field when the keyboard is active; 0-64 characters
+		// input_field_placeholder 如果非空，当键盘激活时，在输入字段中显示的占位符；0-64个字符
+		"input_field_placeholder": "选择你要查询的用户"
+	},
+	// 要发送的消息内容
+	// {{InputMessageContent}}
+	// inputMessageText 文本消息
+	// inputMessagePhoto 图片消息
+	// ...
+	"input_message_content": {
+		// extends: InputMessageContent 要发送的消息内容
+		//
+		// 文本消息
+		"@type": "inputMessageText",
+		"text": {
+			// extends: Base 
+			// 
+			// 带有一些实体的文本 
+			"@type": "formattedText",
+			// @text 要发送的文本；0-getOption("message_text_length_max") 个字符。
+			//-Pre、Code 和 PreCode 实体不能包含其他实体。BlockQuote 实体不能包含其他 BlockQuote 实体。Bold、Italic、Underline、Strikethrough 和 Spoiler 实体可以包含任何其他实体，也可以成为任何其他实体的一部分。所有其他实体不能互相包含
+			"text": "<b>从下方选择你要查询的用户</b>",
+			// @entities 文本中包含的实体。实体可以嵌套，但不能相互交叉。调用parseTextEntitiesxxx接口获得
+			"entities": []
+		},
+		// link_preview_options 用于生成链接预览的选项；如果没有链接或使用默认链接预览选项，传递 null
+		"link_preview_options": {
+			// extends: Base
+			//
+			// 用于生成链接预览的选项
+			"@type": "linkPreviewOptions",
+			// is_disabled True，如果必须禁用链接预览
+			"is_disabled": true,
+			// url 用于链接预览的 URL。如果为空，则将使用在消息文本中找到的第一个 URL
+			"url": "",
+			// force_small_media True，如果显示的媒体预览必须很小；在秘密聊天中或未明确指定 URL 时忽略
+			"force_small_media": false,
+			// force_large_media True，如果显示的媒体预览必须很大；在秘密聊天中或未明确指定 URL 时忽略
+			"force_large_media": false,
+			// show_above_text True，如果链接预览必须显示在消息文本上方；否则，链接预览将显示在消息文本下方；在秘密聊天中忽略
+			"show_above_text": false
+		},
+		// clear_draft 如果必须删除聊天消息草稿，则为 True
+		"clear_draft": false
+	}
+}

@@ -1,0 +1,125 @@
+{
+	// 发送消息。返回发送的消息
+	"@type": "sendMessage",
+	"@extra": "@ASyncTask",
+	// @目标聊天Id
+	"chat_id": {{chatId}},
+	// @目标主题Id
+	"message_thread_id": 0,
+	// 有关要回复的消息或故事的信息；如果没有，则传递 null
+	"reply_to": {
+		// extends: InputMessageReplyTo 包含要回复的消息或故事的信息
+		//
+		// 描述要在同一聊天和论坛主题中回复的消息
+		"@type": "inputMessageReplyToMessage",
+		// @message_id 要在同一聊天和主题中回复的消息的标识符
+		"message_id": {{messageId}},
+		// {{inputTextQuote}}
+		// @quote 要回复的消息中的引用；如果没有，则传递 null。对于秘密聊天中的回复，必须始终为 null
+		"quote": null
+	},
+	// 用于发送消息的选项；传递 null 以使用默认选项
+	"options": {
+		// extends: Base
+		//
+		// 发送消息时要使用的选项
+		"@type": "messageSendOptions",
+		// disable_notification 传递 true 以禁用消息通知
+		"disable_notification": false,
+		// from_background 如果消息是从后台发送的,则传递 true
+		"from_background": true,
+		// protect_content 如果必须保护消息内容不被转发和保存,则传递 true；仅适用于机器人
+		"protect_content": false,
+		// update_order_of_installed_sticker_sets 如果用户从已安装的贴纸集中明确选择了贴纸或自定义表情符号,则传递 true；仅适用于 sendMessage 和 sendMessageAlbum
+		"update_order_of_installed_sticker_sets": false,
+		// scheduling_state {{MessageSchedulingState}} 消息调度状态；传递 null 以立即发送消息。无法安排发送到秘密聊天的消息、实时位置消息和自毁消息
+		"scheduling_state": null,
+		//effect_id 应用于消息的效果的标识符；如果没有,则传递 0；仅适用于私人聊天中的 sendMessage 和 sendMessageAlbum
+		"effect_id": 0,
+		//sending_id 非持久标识符,将在 messageSendingStatePending 对象中返回,可用于匹配已发送消息和相应的 updateNewMessage 更新
+		"sending_id": 60,
+		//only_preview 传递 true 以获取虚假消息而不是实际发送它们
+		"only_preview": false
+	},
+	// 回复消息的标记；若无则传递 null；仅适用于机器人
+	"reply_markup": {
+		"@type": "replyMarkupInlineKeyboard",
+		"rows": [
+			[
+				{
+					"@type": "inlineKeyboardButton",
+					"text": "广告位",
+					"type": {
+						"@type": "inlineKeyboardButtonTypeUrl",
+						"url": "https://www.bing.com/?mkt=zh-CN"
+					}
+				}
+			]
+		]
+	},
+	// 要发送的消息内容
+	// {{InputMessageContent}}
+	// inputMessageText 文本消息
+	// inputMessagePhoto 图片消息
+	// ...
+	"input_message_content": {
+		// extends: InputMessageContent The content of a message to send
+		// 扩展自：InputMessageContent 要发送的消息内容
+		// 
+		// A photo message
+		// 图片消息
+		"@type": "inputMessagePhoto",
+		// photo Photo to send. The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height ratio must be at most 20
+		// photo 要发送的照片。照片大小不能超过10 MB。照片的宽度和高度总和不能超过10000。宽高比最多为20
+		// {{InputFile}}
+		"photo": {
+			// extends: InputFile Points to a file
+			// 扩展自：InputFile 指向一个文件
+			// 
+			// A file defined by a local path 
+			// 通过本地路径定义的文件
+			"@type": "inputFileLocal",
+			// @path Local path to the file
+			// @path 文件的本地路径
+			"path": "{{imgPath}}"
+		},
+		// thumbnail Photo thumbnail to be sent; pass null to skip thumbnail uploading. The thumbnail is sent to the other party only in secret chats
+		// thumbnail 要发送的照片缩略图；传递null以跳过缩略图上传。缩略图只在秘密聊天中发送给对方
+		// {{inputThumbnail}}
+		"thumbnail": null,
+		// added_sticker_file_ids File identifiers of the stickers added to the photo, if applicable
+		// added_sticker_file_ids 如果适用，添加到照片中的贴纸的文件标识符
+		// {{vector<int32>}}
+		"added_sticker_file_ids": null,
+		// width Photo width
+		// width 照片宽度
+		"width": 0,
+		// height Photo height
+		// height 照片高度
+		"height": 0,
+		// caption Photo caption; pass null to use an empty caption; 0-getOption("message_caption_length_max") characters
+		// caption 照片标题；传递null使用空标题；0-getOption("message_caption_length_max")个字符
+		// {{formattedText}}
+		"caption": {
+			// extends: Base 
+			// 
+			// 带有一些实体的文本 
+			"@type": "formattedText",
+			// @text 要发送的文本；0-getOption("message_text_length_max") 个字符。
+			//-Pre、Code 和 PreCode 实体不能包含其他实体。BlockQuote 实体不能包含其他 BlockQuote 实体。Bold、Italic、Underline、Strikethrough 和 Spoiler 实体可以包含任何其他实体，也可以成为任何其他实体的一部分。所有其他实体不能互相包含
+			"text": "<b>聊天Id：</b><code>{{chatId}}</code>\n<b>用户Id：</b><code>{{userId}}</code>\n<b>所在数据中心：</b><code>{{dc}}</code>",
+			// @entities 文本中包含的实体。实体可以嵌套，但不能相互交叉。调用parseTextEntitiesxxx接口获得
+			"entities": []
+		},
+		// show_caption_above_media True, if caption must be shown above the photo; otherwise, caption must be shown below the photo; not supported in secret chats
+		// show_caption_above_media 如果标题必须显示在照片上方，则为True；否则，标题必须显示在照片下方；在秘密聊天中不支持
+		"show_caption_above_media": true,
+		// self_destruct_type Photo self-destruct type; pass null if none; private chats only
+		// self_destruct_type 照片自毁类型；如果没有，则传递null；仅限私人聊天
+		// {{MessageSelfDestructType}}
+		"self_destruct_type": null,
+		// has_spoiler True, if the photo preview must be covered by a spoiler animation; not supported in secret chats
+		// has_spoiler 如果照片预览必须由剧透动画覆盖，则为True；在秘密聊天中不支持
+		"has_spoiler": false
+	}
+}

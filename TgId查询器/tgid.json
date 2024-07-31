@@ -1,0 +1,101 @@
+{
+	// 发送消息。返回发送的消息
+	"@type": "sendMessage",
+	"@extra": "@ASyncTask",
+	// @目标聊天Id
+	"chat_id": {{chatId}},
+	// @目标主题Id
+	"message_thread_id": 0,
+	// 有关要回复的消息或故事的信息；如果没有，则传递 null
+	"reply_to": {
+		// extends: InputMessageReplyTo 包含要回复的消息或故事的信息
+		//
+		// 描述要在同一聊天和论坛主题中回复的消息
+		"@type": "inputMessageReplyToMessage",
+		// @message_id 要在同一聊天和主题中回复的消息的标识符
+		"message_id": {{messageId}},
+		// {{inputTextQuote}}
+		// @quote 要回复的消息中的引用；如果没有，则传递 null。对于秘密聊天中的回复，必须始终为 null
+		"quote": null
+	},
+	// 用于发送消息的选项；传递 null 以使用默认选项
+	"options": {
+		// extends: Base
+		//
+		// 发送消息时要使用的选项
+		"@type": "messageSendOptions",
+		// disable_notification 传递 true 以禁用消息通知
+		"disable_notification": false,
+		// from_background 如果消息是从后台发送的,则传递 true
+		"from_background": true,
+		// protect_content 如果必须保护消息内容不被转发和保存,则传递 true；仅适用于机器人
+		"protect_content": false,
+		// update_order_of_installed_sticker_sets 如果用户从已安装的贴纸集中明确选择了贴纸或自定义表情符号,则传递 true；仅适用于 sendMessage 和 sendMessageAlbum
+		"update_order_of_installed_sticker_sets": false,
+		// scheduling_state {{MessageSchedulingState}} 消息调度状态；传递 null 以立即发送消息。无法安排发送到秘密聊天的消息、实时位置消息和自毁消息
+		"scheduling_state": null,
+		//effect_id 应用于消息的效果的标识符；如果没有,则传递 0；仅适用于私人聊天中的 sendMessage 和 sendMessageAlbum
+		"effect_id": 0,
+		//sending_id 非持久标识符,将在 messageSendingStatePending 对象中返回,可用于匹配已发送消息和相应的 updateNewMessage 更新
+		"sending_id": 60,
+		//only_preview 传递 true 以获取虚假消息而不是实际发送它们
+		"only_preview": false
+	},
+	// 回复消息的标记；若无则传递 null；仅适用于机器人
+	"reply_markup": {
+		"@type": "replyMarkupInlineKeyboard",
+		"rows": [
+			[
+				{
+					"@type": "inlineKeyboardButton",
+					"text": "广告位",
+					"type": {
+						"@type": "inlineKeyboardButtonTypeUrl",
+						"url": "https://www.bing.com/?mkt=zh-CN"
+					}
+				}
+			]
+		]
+	},
+	// 要发送的消息内容
+	// {{InputMessageContent}}
+	// inputMessageText 文本消息
+	// inputMessagePhoto 图片消息
+	// ...
+	"input_message_content": {
+		// extends: InputMessageContent 要发送的消息内容
+		//
+		// 文本消息
+		"@type": "inputMessageText",
+		"text": {
+			// extends: Base 
+			// 
+			// 带有一些实体的文本 
+			"@type": "formattedText",
+			// @text 要发送的文本；0-getOption("message_text_length_max") 个字符。
+			//-Pre、Code 和 PreCode 实体不能包含其他实体。BlockQuote 实体不能包含其他 BlockQuote 实体。Bold、Italic、Underline、Strikethrough 和 Spoiler 实体可以包含任何其他实体，也可以成为任何其他实体的一部分。所有其他实体不能互相包含
+			"text": "<b>聊天Id：</b><code>{{chatId}}</code>\n<b>用户Id：</b><code>{{userId}}</code>\n<b>用户名：</b><code>{{userName}}</code>\n<b>用户昵称：</b><code>{{firstName}}</code>\n<b>是否会员：</b><code>{{isPremium}}</code>\n<b>风险账户：</b><code>{{isFake}}</code>",
+			// @entities 文本中包含的实体。实体可以嵌套，但不能相互交叉。调用parseTextEntitiesxxx接口获得
+			"entities": []
+		},
+		// link_preview_options 用于生成链接预览的选项；如果没有链接或使用默认链接预览选项，传递 null
+		"link_preview_options": {
+			// extends: Base
+			//
+			// 用于生成链接预览的选项
+			"@type": "linkPreviewOptions",
+			// is_disabled True，如果必须禁用链接预览
+			"is_disabled": true,
+			// url 用于链接预览的 URL。如果为空，则将使用在消息文本中找到的第一个 URL
+			"url": "",
+			// force_small_media True，如果显示的媒体预览必须很小；在秘密聊天中或未明确指定 URL 时忽略
+			"force_small_media": false,
+			// force_large_media True，如果显示的媒体预览必须很大；在秘密聊天中或未明确指定 URL 时忽略
+			"force_large_media": false,
+			// show_above_text True，如果链接预览必须显示在消息文本上方；否则，链接预览将显示在消息文本下方；在秘密聊天中忽略
+			"show_above_text": false
+		},
+		// clear_draft 如果必须删除聊天消息草稿，则为 True
+		"clear_draft": false
+	}
+}
