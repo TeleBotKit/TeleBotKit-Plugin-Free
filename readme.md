@@ -1,4 +1,4 @@
-# TeleBotKit框架插件自动化更新仓库
+# TeleBotKit框架免费插件更新仓库
 
 > 最新版本：[下载](https://github.com/TeleBotKit/TeleBotKit-Plugin-Free/archive/refs/heads/main.zip)  
 > 历史版本：[下载](https://github.com/TeleBotKit/TeleBotKit-Plugin-Free/tags)  
